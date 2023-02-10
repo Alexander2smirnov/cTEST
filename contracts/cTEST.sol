@@ -10,8 +10,8 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract cTEST is ERC20 {
     uint public totalUnderlying;
     uint public scale = 10**18;
-    uint exchangeRate = 10**28;
-    address underlyingToken;
+    uint public exchangeRate = 10**28;
+    address public underlyingToken;
 
     constructor(address _token) ERC20("cTEST", "cTEST") {
         underlyingToken = _token;
@@ -32,7 +32,7 @@ contract cTEST is ERC20 {
 
     }
 
-    function exchangeRateCurrent() public returns (uint256) {
+    function exchangeRateCurrent() public view returns (uint256) {
         return exchangeRate;
     }
 
@@ -50,7 +50,7 @@ contract cTEST is ERC20 {
         token.transfer(msg.sender, _amount);
     }
 
-    function balanceOfUnderlying(address _account) public returns (uint) {
+    function balanceOfUnderlying(address _account) public view returns (uint) {
         uint cTokenBalance = balanceOf(_account);
 
         return cTokenBalance * exchangeRate / scale;
